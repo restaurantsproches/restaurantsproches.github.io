@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Restaurants Proches — Trouvez un bon restaurant près de chez vous</title>
+<meta name="description" content="Restaurants Proches : calculatrice de pourboire, diviseur d'addition, planificateur de budget restaurant, aide à la réservation et liste de contrôle régimes et allergies. Guides pratiques pour bien manger en France.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root{--green:#14532d;--green2:#1e7a46;--terra:#c2410c;--cream:#faf7f0;--card:#fff;--text:#22281f;--muted:#5b665e;--line:#e3ddd0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--cream);color:var(--text);line-height:1.6}
+header{background:var(--green);color:#fff;padding:1rem 1.2rem}
+.wrap{max-width:960px;margin:0 auto;padding:0 1rem}
+.brand{font-size:1.6rem;font-weight:800}
+.brand span{color:#fbbf24}
+nav{margin-top:.4rem;display:flex;flex-wrap:wrap;gap:1rem}
+nav a{color:#d1fae5;text-decoration:none;font-weight:600}
+nav a:hover{text-decoration:underline}
+.hero{background:#e9f5ec;padding:2.2rem 1rem;text-align:center}
+.hero h1{font-size:2rem;color:var(--green);margin-bottom:.5rem}
+.hero p{max-width:640px;margin:0 auto;color:var(--muted)}
+section{padding:2rem 0}
+h2{color:var(--green);margin-bottom:1rem;font-size:1.4rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.2rem}
+.card h3{color:var(--terra);margin-bottom:.6rem;font-size:1.1rem}
+label{display:block;font-weight:600;margin:.5rem 0 .2rem;font-size:.95rem}
+input,select{width:100%;padding:.55rem;border:1px solid #c9c2b2;border-radius:8px;font-size:1rem}
+button{background:var(--green);color:#fff;border:0;border-radius:8px;padding:.6rem 1.1rem;font-size:1rem;font-weight:700;cursor:pointer;margin-top:.8rem}
+button:hover{background:var(--green2)}
+.out{background:#f0f7f1;border:1px dashed var(--green2);border-radius:8px;padding:.8rem;margin-top:.8rem;font-size:1.05rem}
+.out b{color:var(--green)}
+table{width:100%;border-collapse:collapse;background:#fff}
+th,td{border:1px solid var(--line);padding:.6rem;text-align:left}
+th{background:var(--green);color:#fff}
+.guide-card h3 a{color:var(--green);text-decoration:none}
+.guide-card h3 a:hover{color:var(--terra)}
+.guide-card p{color:var(--muted)}
+details{background:#fff;border:1px solid var(--line);border-radius:8px;padding:.8rem 1rem;margin-bottom:.6rem}
+summary{font-weight:700;cursor:pointer;color:var(--green)}
+footer{background:var(--green);color:#d1fae5;padding:2rem 1rem;margin-top:1rem;font-size:.95rem}
+footer h3{color:#fff;margin-bottom:.4rem}
+footer a{color:#fbbf24}
+.check label{font-weight:400;display:flex;gap:.5rem;align-items:center;margin:.3rem 0}
+.check input{width:auto}
+@media(max-width:600px){.hero h1{font-size:1.5rem}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+<div class="brand">🍽️ Restaurants <span>Proches</span></div>
+<nav><a href="#outils">Outils</a><a href="#table">Guide du pourboire</a><a href="#guides">Guides</a><a href="#faq">FAQ</a><a href="#apropos">À propos</a></nav>
+</div>
+</header>
+<div class="hero">
+<div class="wrap">
+<h1>Trouvez un bon restaurant près de chez vous</h1>
+<p>Des outils gratuits pour préparer votre sortie au restaurant en France : pourboire, partage de l'addition, budget, réservation et régimes alimentaires — plus des guides simples et pratiques.</p>
+</div>
+</div>
+<main class="wrap">
+
+<section id="outils">
+<h2>Nos outils gratuits</h2>
+<div class="grid">
+
+<div class="card">
+<h3>1. Calculatrice de pourboire</h3>
+<p>En France, le service est inclus dans le prix. Ce calculateur vous aide à décider d'un petit extra si le service vous a plu.</p>
+<label for="tip-bill">Montant de l'addition (€)</label>
+<input id="tip-bill" type="number" min="0" step="0.01" value="48">
+<label for="tip-pct">Pourboire (%)</label>
+<select id="tip-pct"><option value="0">0 % — service inclus, rien de plus</option><option value="5" selected>5 % — bon service</option><option value="10">10 % — excellent service</option><option value="15">15 % — service exceptionnel</option></select>
+<label for="tip-people">Nombre de personnes</label>
+<input id="tip-people" type="number" min="1" step="1" value="2">
+<button onclick="calcTip()">Calculer</button>
+<div class="out" id="tip-out">Entrez le montant puis cliquez sur Calculer.</div>
+</div>
+
+<div class="card">
+<h3>2. Diviseur d'addition</h3>
+<p>Partagez l'addition équitablement entre tous les convives, pourboire compris.</p>
+<label for="split-total">Total de l'addition (€)</label>
+<input id="split-total" type="number" min="0" step="0.01" value="96">
+<label for="split-tip">Pourboire (%)</label>
+<input id="split-tip" type="number" min="0" step="1" value="5">
+<label for="split-people">Nombre de personnes</label>
+<input id="split-people" type="number" min="1" step="1" value="4">
+<button onclick="calcSplit()">Diviser</button>
+<div class="out" id="split-out">Entrez le total puis cliquez sur Diviser.</div>
+</div>
+
+<div class="card">
+<h3>3. Planificateur de budget restaurant</h3>
+<p>Combien pouvez-vous dépenser au restaurant chaque mois sans dépasser votre budget ?</p>
+<label for="bud-month">Budget mensuel restaurant (€)</label>
+<input id="bud-month" type="number" min="0" step="1" value="120">
+<label for="bud-meals">Repas au restaurant par semaine</label>
+<input id="bud-meals" type="number" min="0" step="1" value="2">
+<label for="bud-avg">Coût moyen d'un repas (€)</label>
+<input id="bud-avg" type="number" min="0" step="0.01" value="18">
+<button onclick="calcBudget()">Planifier</button>
+<div class="out" id="bud-out">Entrez vos chiffres puis cliquez sur Planifier.</div>
+</div>
+
+<div class="card">
+<h3>4. Planificateur de réservation</h3>
+<p>Préparez votre réservation : vérifiez les détails avant d'appeler le restaurant.</p>
+<label for="res-date">Date souhaitée</label>
+<input id="res-date" type="date">
+<label for="res-time">Heure souhaitée</label>
+<input id="res-time" type="time" value="20:00">
+<label for="res-guests">Nombre de convives</label>
+<input id="res-guests" type="number" min="1" step="1" value="2">
+<label for="res-occ">Occasion</label>
+<select id="res-occ"><option>Dîner entre amis</option><option>Dîner en famille</option><option>Anniversaire</option><option>Dîner d'affaires</option><option>Dîner romantique</option></select>
+<button onclick="calcRes()">Préparer ma réservation</button>
+<div class="out" id="res-out">Choisissez une date puis cliquez sur le bouton.</div>
+</div>
+
+<div class="card">
+<h3>5. Liste de contrôle régimes et allergies</h3>
+<p>Cochez vos besoins : nous rédigeons la phrase à montrer au serveur.</p>
+<div class="check">
+<label><input type="checkbox" class="diet" value="végétarien"> Végétarien</label>
+<label><input type="checkbox" class="diet" value="végétalien (vegan)"> Végétalien (vegan)</label>
+<label><input type="checkbox" class="diet" value="sans gluten"> Sans gluten</label>
+<label><input type="checkbox" class="diet" value="sans lactose"> Sans lactose</label>
+<label><input type="checkbox" class="diet" value="allergie aux fruits à coque"> Allergie aux fruits à coque</label>
+<label><input type="checkbox" class="diet" value="allergie aux arachides"> Allergie aux arachides</label>
+<label><input type="checkbox" class="diet" value="allergie aux crustacés"> Allergie aux crustacés</label>
+<label><input type="checkbox" class="diet" value="halal"> Halal</label>
+<label><input type="checkbox" class="diet" value="sans porc"> Sans porc</label>
+<label><input type="checkbox" class="diet" value="sans alcool"> Sans alcool</label>
+</div>
+<button onclick="calcDiet()">Créer ma phrase</button>
+<div class="out" id="diet-out">Cochez vos besoins puis cliquez sur le bouton.</div>
+</div>
+
+</div>
+</section>
+
+<section id="table">
+<h2>Pourboire et étiquette au restaurant en France</h2>
+<table>
+<tr><th>Situation</th><th>Ce qu'il faut savoir</th><th>Pourboire habituel</th></tr>
+<tr><td>Restaurant classique</td><td>Le service (15 %) est déjà inclus dans les prix affichés, par la loi.</td><td>0 à 5 % en espèces, si le service vous a plu</td></tr>
+<tr><td>Bistrot ou brasserie</td><td>Les prix incluent le service ; on arrondit souvent l'addition.</td><td>Arrondir à l'euro supérieur, ou 1 à 2 €</td></tr>
+<tr><td>Café, terrasse</td><td>Le service est inclus ; un petit geste est apprécié.</td><td>Quelques pièces, 0,50 à 1 €</td></tr>
+<tr><td>Restaurant gastronomique</td><td>Service soigné inclus ; un pourboire marque la satisfaction.</td><td>5 à 10 % en espèces</td></tr>
+<tr><td>Livraison à domicile</td><td>Le livreur n'est pas le serveur ; le pourboire n'est pas obligatoire.</td><td>1 à 2 € si la livraison est rapide</td></tr>
+<tr><td>Bar</td><td>On paie à la commande ; le pourboire est rare.</td><td>Facultatif</td></tr>
+</table>
+<p style="margin-top:.8rem;color:var(--muted)">En France, on ne laisse jamais de pourboire par carte bancaire dans la plupart des restaurants : prévoyez des espèces si vous souhaitez en laisser un. Le pourboire va directement au personnel de salle.</p>
+</section>
+
+<section id="guides">
+<h2>Guides pratiques</h2>
+<div class="grid">
+<div class="card guide-card"><h3><a href="guides/trouver-bon-restaurant.html">Comment trouver un bon restaurant à proximité</a></h3><p>Avis en ligne, carte, spécialités locales : les critères qui comptent vraiment avant de choisir.</p></div>
+<div class="card guide-card"><h3><a href="guides/pourboire-france.html">Le pourboire en France expliqué</a></h3><p>Service inclus, montants habituels, espèces ou carte : tout ce qu'il faut savoir.</p></div>
+<div class="card guide-card"><h3><a href="guides/lire-menu-francais.html">Comment lire un menu français</a></h3><p>Entrée, plat, dessert, formule, carte des vins : décoder le menu sans stress.</p></div>
+<div class="card guide-card"><h3><a href="guides/reserver-table.html">Réserver une table</a></h3><p>Quand réserver, quoi dire au téléphone et comment confirmer sans erreur.</p></div>
+<div class="card guide-card"><h3><a href="guides/restaurants-familles.html">Restaurants adaptés aux familles</a></h3><p>Menu enfant, chaise haute, horaires : choisir un restaurant où toute la famille est à l'aise.</p></div>
+<div class="card guide-card"><h3><a href="guides/diner-tard-soir.html">Où dîner tard le soir</a></h3><p>Brasseries ouvertes tard, service continu et bonnes adresses après 22 h.</p></div>
+</div>
+</section>
+
+<section id="faq">
+<h2>Questions fréquentes</h2>
+<details><summary>Le pourboire est-il obligatoire en France ?</summary><p>Non. Le service est inclus dans le prix par la loi. Le pourboire reste un geste libre pour remercier un bon service.</p></details>
+<details><summary>Peut-on laisser un pourboire par carte bancaire ?</summary><p>Dans la plupart des restaurants, non : le terminal ne propose pas cette option. Prévoyez des espèces.</p></details>
+<details><summary>Faut-il toujours réserver une table ?</summary><p>Le week-end et dans les restaurants populaires, oui. En semaine, pour un petit groupe, on peut souvent venir sans réservation, mais appeler avant évite une mauvaise surprise.</p></details>
+<details><summary>Que faire en cas d'allergie alimentaire ?</summary><p>Prévenez le serveur dès votre arrivée. Les restaurants doivent indiquer les 14 allergènes majeurs sur leur carte ou sur demande. Utilisez notre liste de contrôle pour préparer votre phrase.</p></details>
+<details><summary>Les prix affichés incluent-ils les taxes ?</summary><p>Oui. En France, les prix affichés sur la carte incluent la TVA et le service. Le montant affiché est celui que vous payez, hors pourboire éventuel.</p></details>
+</section>
+
+</main>
+<footer id="apropos">
+<div class="wrap">
+<h3>À propos de Restaurants Proches</h3>
+<p>Restaurants Proches est un guide indépendant et gratuit pour vous aider à choisir et préparer vos sorties au restaurant en France. Nos outils et nos guides sont rédigés à titre informatif : les prix, les horaires et les politiques des restaurants peuvent changer, vérifiez toujours directement auprès de l'établissement avant de vous déplacer.</p>
+<p style="margin-top:.6rem"><strong>Avertissement :</strong> les informations sur les allergies et les régimes sont fournies à titre général et ne remplacent pas l'avis d'un professionnel de santé. Signalez toujours vos allergies au restaurant.</p>
+<p style="margin-top:.6rem">© 2026 Restaurants Proches — Tous droits réservés.</p>
+</div>
+</footer>
+<script>
+function eur(n){return n.toFixed(2).replace(".",",")+" €";}
+function calcTip(){
+  var bill=parseFloat(document.getElementById("tip-bill").value)||0;
+  var pct=parseFloat(document.getElementById("tip-pct").value)||0;
+  var p=Math.max(1,parseInt(document.getElementById("tip-people").value)||1);
+  var tip=bill*pct/100, total=bill+tip;
+  document.getElementById("tip-out").innerHTML="Pourboire : <b>"+eur(tip)+"</b> ("+pct+" %)<br>Total à payer : <b>"+eur(total)+"</b><br>Par personne : <b>"+eur(total/p)+"</b>";
+}
+function calcSplit(){
+  var total=parseFloat(document.getElementById("split-total").value)||0;
+  var tipPct=parseFloat(document.getElementById("split-tip").value)||0;
+  var p=Math.max(1,parseInt(document.getElementById("split-people").value)||1);
+  var tip=total*tipPct/100, grand=total+tip;
+  document.getElementById("split-out").innerHTML="Pourboire : <b>"+eur(tip)+"</b><br>Total avec pourboire : <b>"+eur(grand)+"</b><br>Chaque personne paie : <b>"+eur(grand/p)+"</b>";
+}
+function calcBudget(){
+  var monthly=parseFloat(document.getElementById("bud-month").value)||0;
+  var meals=parseFloat(document.getElementById("bud-meals").value)||0;
+  var avg=parseFloat(document.getElementById("bud-avg").value)||0;
+  var weeklySpend=meals*avg, monthlySpend=weeklySpend*4.33, remain=monthly-monthlySpend;
+  var msg="Dépense estimée : <b>"+eur(weeklySpend)+"</b> par semaine, soit <b>"+eur(monthlySpend)+"</b> par mois.<br>";
+  if(remain>=0){msg+="Il vous reste <b>"+eur(remain)+"</b> dans votre budget mensuel. Bravo !";}
+  else{msg+="Vous dépassez votre budget de <b>"+eur(-remain)+"</b> par mois. Réduisez à "+Math.max(0,Math.floor(monthly/avg/4.33))+" repas par semaine, ou choisissez des menus moins chers.";}
+  document.getElementById("bud-out").innerHTML=msg;
+}
+function calcRes(){
+  var d=document.getElementById("res-date").value;
+  var t=document.getElementById("res-time").value||"20:00";
+  var g=parseInt(document.getElementById("res-guests").value)||1;
+  var o=document.getElementById("res-occ").value;
+  if(!d){document.getElementById("res-out").innerHTML="Choisissez d'abord une date.";return;}
+  var dateObj=new Date(d+"T12:00:00");
+  var jours=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+  var mois=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+  var txt=jours[dateObj.getDay()]+" "+dateObj.getDate()+" "+mois[dateObj.getMonth()]+" "+dateObj.getFullYear();
+  document.getElementById("res-out").innerHTML="Votre réservation : <b>"+g+" personne"+(g>1?"s":"")+"</b>, <b>"+txt+"</b> à <b>"+t+"</b> ("+o+").<br>Conseils : arrivez 10 minutes en avance, confirmez par téléphone la veille, et prévenez le restaurant si vous annulez.";
+}
+function calcDiet(){
+  var boxes=document.querySelectorAll(".diet:checked");
+  var out=document.getElementById("diet-out");
+  if(boxes.length===0){out.innerHTML="Cochez au moins un besoin ci-dessus.";return;}
+  var items=[]; boxes.forEach(function(b){items.push(b.value);});
+  var phrase="Bonjour, je suis "+items.join(", ")+". Pourriez-vous me conseiller les plats adaptés, s'il vous plaît ?";
+  out.innerHTML="Vos besoins : <b>"+items.join(", ")+"</b><br><br>Phrase à montrer au serveur :<br><em>« "+phrase+" »</em><br><br>Conseil : mentionnez vos allergies dès la réservation, puis à nouveau à l'arrivée.";
+}
+</script>
+</body>
+</html>
